@@ -91,18 +91,19 @@
             gap: 0.75rem;
         }
 
-        /* Changed to style anchor tags properly */
         .service-card {
             background-color: var(--surface-dark);
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--fyr-red);
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-decoration: none; /* Removes link underline */
-            color: inherit; /* Keeps text white */
+            text-decoration: none; 
+            color: inherit; 
             cursor: pointer;
+            height: 100%; /* Fills the grid wrapper */
+            /* This transition is now ONLY for the hover effect */
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
 
@@ -116,6 +117,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             text-transform: uppercase;
+            margin-bottom: 0.25rem;
         }
 
         .service-sub {
@@ -211,11 +213,13 @@
             font-size: 0.9rem;
         }
 
-        /* ANIMATION CLASSES */
+        /* NEW SMOOTH ANIMATION CLASSES */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
+            transform: translateY(20px); /* Shorter travel distance looks cleaner */
+            /* High-end cubic-bezier curve for a natural deceleration */
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform; /* Hardware acceleration */
         }
 
         .reveal.active {
@@ -273,46 +277,62 @@
             <h2 class="section-title reveal">Specialise In</h2>
             <div class="services-grid">
                 
-                <!-- Service Cards turned into WhatsApp Links with custom pre-filled text -->
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Auto%20Electrical%20Fault%20Finding" target="_blank" class="service-card reveal">
-                    <div class="service-title">Auto Electrical</div>
-                    <div class="service-sub">Fault Finding</div>
-                </a>
+                <!-- Cards are now wrapped in their own .reveal div to prevent CSS conflicts -->
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Auto%20Electrical%20Fault%20Finding" target="_blank" class="service-card">
+                        <div class="service-title">Auto Electrical</div>
+                        <div class="service-sub">Fault Finding</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Starter%20Rebuilding" target="_blank" class="service-card reveal">
-                    <div class="service-title">Starter</div>
-                    <div class="service-sub">Rebuilding</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Starter%20Rebuilding" target="_blank" class="service-card">
+                        <div class="service-title">Starter</div>
+                        <div class="service-sub">Rebuilding</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Alternator%20Rebuilding" target="_blank" class="service-card reveal">
-                    <div class="service-title">Alternator</div>
-                    <div class="service-sub">Rebuilding</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Alternator%20Rebuilding" target="_blank" class="service-card">
+                        <div class="service-title">Alternator</div>
+                        <div class="service-sub">Rebuilding</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Minor%20Vehicle%20Services" target="_blank" class="service-card reveal">
-                    <div class="service-title">Minor Vehicle</div>
-                    <div class="service-sub">Services</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Minor%20Vehicle%20Services" target="_blank" class="service-card">
+                        <div class="service-title">Minor Vehicle</div>
+                        <div class="service-sub">Services</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Vehicle%20Diagnostics%20and%20Code%20Clearing" target="_blank" class="service-card reveal">
-                    <div class="service-title">Vehicle Diagnostics</div>
-                    <div class="service-sub">And Code Clearing</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Vehicle%20Diagnostics%20and%20Code%20Clearing" target="_blank" class="service-card">
+                        <div class="service-title">Vehicle Diagnostics</div>
+                        <div class="service-sub">And Code Clearing</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20LED%20/%20Light%20Upgrades" target="_blank" class="service-card reveal">
-                    <div class="service-title">LED / Light</div>
-                    <div class="service-sub">Upgrades</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20LED%20/%20Light%20Upgrades" target="_blank" class="service-card">
+                        <div class="service-title">LED / Light</div>
+                        <div class="service-sub">Upgrades</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Dash%20Cam%20Installations" target="_blank" class="service-card reveal">
-                    <div class="service-title">Dash Cam</div>
-                    <div class="service-sub">Installations</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Dash%20Cam%20Installations" target="_blank" class="service-card">
+                        <div class="service-title">Dash Cam</div>
+                        <div class="service-sub">Installations</div>
+                    </a>
+                </div>
                 
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20CCTV%20Installations" target="_blank" class="service-card reveal">
-                    <div class="service-title">CCTV</div>
-                    <div class="service-sub">Installations</div>
-                </a>
+                <div class="reveal">
+                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20CCTV%20Installations" target="_blank" class="service-card">
+                        <div class="service-title">CCTV</div>
+                        <div class="service-sub">Installations</div>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -340,7 +360,7 @@
 
     </div>
 
-    <!-- Scroll Reveal Logic -->
+    <!-- Script remains mostly the same, removed the buggy math stagger -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const reveals = document.querySelectorAll('.reveal');
@@ -353,14 +373,18 @@
                     }
                 });
             }, {
-                threshold: 0.1, 
-                rootMargin: "0px 0px -50px 0px" 
+                threshold: 0.15, // Triggers slightly later for a cleaner fade
+                rootMargin: "0px 0px -30px 0px"
             });
 
-            reveals.forEach((reveal, index) => {
-                if(reveal.classList.contains('service-card')) {
-                    reveal.style.transitionDelay = `${(index % 2) * 0.15}s`; 
-                }
+            // Clean, predictable delay for grid items
+            const gridItems = document.querySelectorAll('.services-grid .reveal');
+            gridItems.forEach((item, index) => {
+                // Adds a tiny sequential delay so they flow down the list
+                item.style.transitionDelay = `${(index % 2) * 0.1}s`; 
+            });
+
+            reveals.forEach((reveal) => {
                 revealOnScroll.observe(reveal);
             });
         });
