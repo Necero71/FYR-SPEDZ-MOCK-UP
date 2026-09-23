@@ -12,9 +12,11 @@
             --bg-dark: #050505;
             --surface-dark: #121212;
             --fyr-red: #d30000;
+            --fyr-red-hover: #ff1a1a;
             --text-main: #ffffff;
             --text-muted: #888888;
             --border-color: #222222;
+            --wa-green: #25D366;
         }
 
         * {
@@ -28,12 +30,13 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.5;
+            overflow-x: hidden; /* Prevents scrollbar issues during animations */
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 1.5rem 1rem; /* Tighter padding for mobile */
+            padding: 1.5rem 1rem;
         }
 
         /* HEADER SECTION */
@@ -48,7 +51,6 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             font-style: italic;
-            /* Fluid typography for mobile so it never overflows */
             font-size: 11vw; 
             line-height: 1.1;
             letter-spacing: 1px;
@@ -63,7 +65,7 @@
         .tagline {
             color: var(--fyr-red);
             font-weight: 600;
-            font-size: 0.85rem; /* Smaller for mobile */
+            font-size: 0.85rem;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -80,13 +82,13 @@
             font-style: italic;
             margin-bottom: 1.25rem;
             text-transform: uppercase;
-            text-align: center; /* Center titles on mobile */
+            text-align: center;
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 0.75rem; /* Tighter gap for mobile */
+            gap: 0.75rem;
         }
 
         .service-card {
@@ -148,25 +150,48 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             font-style: italic;
-            font-size: 2rem; /* Scaled down for mobile */
+            font-size: 2rem;
             color: var(--text-main);
             margin-bottom: 0.5rem;
         }
 
         .contact-info {
             margin-top: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem; /* Adds space between numbers for tapping */
+            gap: 0.75rem;
         }
 
-        .contact-info p {
+        /* Styled Links as Buttons */
+        .contact-btn {
+            display: inline-block;
             background-color: rgba(211, 0, 0, 0.1);
-            padding: 0.75rem;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 0.85rem;
             border-radius: 6px;
             border: 1px solid rgba(211, 0, 0, 0.3);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            background-color: rgba(211, 0, 0, 0.2);
+            border-color: var(--fyr-red-hover);
+        }
+
+        .wa-btn {
+            background-color: var(--wa-green);
+            color: #000;
+            border: none;
+            margin-top: 0.5rem;
+        }
+
+        .wa-btn:hover {
+            background-color: #1ebe5d;
+            border: none;
         }
 
         .location {
@@ -177,22 +202,32 @@
             font-size: 0.9rem;
         }
 
-        /* ------------------------------------------- */
-        /* DESKTOP OVERRIDES (Screens larger than 600px) */
-        /* ------------------------------------------- */
+        /* ANIMATION CLASSES */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* DESKTOP OVERRIDES */
         @media(min-width: 600px) {
             .container {
                 padding: 3rem 1.5rem;
             }
             .logo {
-                font-size: 3.5rem; /* Locks in the big size on desktop */
+                font-size: 3.5rem;
             }
             .tagline {
                 font-size: 1.1rem;
             }
             .section-title {
                 font-size: 1.8rem;
-                text-align: left; /* Left align on desktop */
+                text-align: left;
             }
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -208,12 +243,11 @@
             .contact-info {
                 flex-direction: row;
                 justify-content: center;
-                gap: 2rem;
+                flex-wrap: wrap;
+                gap: 1.5rem;
             }
-            .contact-info p {
-                background-color: transparent;
-                border: none;
-                padding: 0;
+            .contact-btn {
+                min-width: 250px;
             }
             .service-card:hover {
                 transform: translateX(5px);
@@ -225,62 +259,66 @@
 <body>
     <div class="container">
         
-        <header>
+        <header class="reveal">
             <div class="logo"><span>FYR_</span>SPEEDZ</div>
             <div class="tagline">Book to avoid disappointment</div>
         </header>
 
         <section>
-            <h2 class="section-title">Specialise In</h2>
+            <h2 class="section-title reveal">Specialise In</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <!-- Added 'reveal' class to stagger the animation -->
+                <div class="service-card reveal">
                     <div class="service-title">Auto Electrical</div>
                     <div class="service-sub">Fault Finding</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">Starter</div>
                     <div class="service-sub">Rebuilding</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">Alternator</div>
                     <div class="service-sub">Rebuilding</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">Minor Vehicle</div>
                     <div class="service-sub">Services</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">Vehicle Diagnostics</div>
                     <div class="service-sub">And Code Clearing</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">LED / Light</div>
                     <div class="service-sub">Upgrades</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">Dash Cam</div>
                     <div class="service-sub">Installations</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <div class="service-title">CCTV</div>
                     <div class="service-sub">Installations</div>
                 </div>
             </div>
         </section>
 
-        <div class="guarantees">
+        <div class="guarantees reveal">
             <div class="guarantee-item">QUALITY <span>WORKMANSHIP</span></div>
             <div class="guarantee-item">RELIABLE <span>SERVICE</span></div>
             <div class="guarantee-item">FAST <span>TURNAROUND</span></div>
         </div>
 
-        <div class="cta-section">
+        <div class="cta-section reveal">
             <div class="book-now">BOOK NOW</div>
             <div class="tagline">To Avoid Disappointment</div>
             
             <div class="contact-info">
-                <p>📞 Fayyaad - 061 095 6964</p>
-                <p>📞 Jashmika - 062 682 8245</p>
+                <!-- Functional tel: links -->
+                <a href="tel:+27610956964" class="contact-btn">📞 Fayyaad - 061 095 6964</a>
+                <a href="tel:+27626828245" class="contact-btn">📞 Jashmika - 062 682 8245</a>
+                <!-- WhatsApp API link -->
+                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20make%20a%20booking!" target="_blank" class="contact-btn wa-btn">💬 Chat on WhatsApp</a>
             </div>
 
             <div class="location">
@@ -290,5 +328,33 @@
         </div>
 
     </div>
+
+    <!-- Scroll Reveal Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once it has animated in
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1, // Triggers when 10% of the element is visible
+                rootMargin: "0px 0px -50px 0px" // Triggers slightly before it enters the viewport
+            });
+
+            reveals.forEach((reveal, index) => {
+                // Add a slight delay to grid items for a cascade effect
+                if(reveal.classList.contains('service-card')) {
+                    reveal.style.transitionDelay = `${(index % 2) * 0.15}s`; 
+                }
+                revealOnScroll.observe(reveal);
+            });
+        });
+    </script>
 </body>
 </html>
