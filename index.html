@@ -1,1 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FYR_SPEEDZ | Auto Electrical & Diagnostics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --surface-dark: #121212;
+            --fyr-red: #d30000;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* HEADER SECTION */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--fyr-red);
+        }
+
+        .tagline {
+            color: var(--fyr-red);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* SERVICES GRID */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media(min-width: 600px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .service-card {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--fyr-red);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateX(5px);
+            border-color: var(--fyr-red);
+        }
+
+        .service-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .service-sub {
+            color: var(--fyr-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* GUARANTEES BAR */
+        .guarantees {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: var(--surface-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        @media(min-width: 600px) {
+            .guarantees {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+
+        .guarantee-item {
+            font-weight: 600;
+        }
+        
+        .guarantee-item span {
+            color: var(--fyr-red);
+            display: block;
+        }
+
+        /* CTA & CONTACT SECTION */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #1a0000 100%);
+            padding: 3rem 1.5rem;
+            border: 1px solid var(--fyr-red);
+            border-radius: 8px;
+        }
+
+        .book-now {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .location {
+            margin-top: 1.5rem;
+            color: var(--fyr-red);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header from flyer -->
+        <header>
+            <div class="logo"><span>FYR_</span>SPEEDZ</div>
+            <div class="tagline">Book to avoid disappointment</div>
+        </header>
+
+        <!-- Services Section -->
+        <section>
+            <h2 class="section-title">Specialise In</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-title">Auto Electrical</div>
+                    <div class="service-sub">Fault Finding</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">Starter</div>
+                    <div class="service-sub">Rebuilding</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">Alternator</div>
+                    <div class="service-sub">Rebuilding</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">Minor Vehicle</div>
+                    <div class="service-sub">Services</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">Vehicle Diagnostics</div>
+                    <div class="service-sub">And Code Clearing</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">LED / Light</div>
+                    <div class="service-sub">Upgrades</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">Dash Cam</div>
+                    <div class="service-sub">Installations</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-title">CCTV</div>
+                    <div class="service-sub">Installations</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guarantees Bar -->
+        <div class="guarantees">
+            <div class="guarantee-item">QUALITY <span>WORKMANSHIP</span></div>
+            <div class="guarantee-item">RELIABLE <span>SERVICE</span></div>
+            <div class="guarantee-item">FAST <span>TURNAROUND</span></div>
+        </div>
+
+        <!-- Contact & CTA -->
+        <div class="cta-section">
+            <div class="book-now">BOOK NOW</div>
+            <div class="tagline">To Avoid Disappointment</div>
+            
+            <div class="contact-info">
+                <p>📞 Fayyaad - 061 095 6964</p>
+                <p>📞 Jashmika - 062 682 8245</p>
+            </div>
+
+            <div class="location">
+                📍 Based in Cape Town<br>
+                Mobile Service Available
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
 
