@@ -34,7 +34,6 @@
             overflow-x: hidden; 
         }
 
-        /* UX: Scroll Progress Bar */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -47,7 +46,6 @@
             transition: width 0.1s ease-out;
         }
 
-        /* UX: Sticky Glass Header */
         header {
             position: sticky;
             top: 0;
@@ -140,11 +138,10 @@
             gap: 0.75rem; 
         }
 
+        /* NEW: Pure CSS Dark Tuner Aesthetic */
         .service-card {
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-color: #1a1a1a; /* Acts as a dark fallback if image takes a second to load */
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--fyr-red);
             padding: 1.25rem 0.75rem; 
@@ -160,38 +157,39 @@
             outline: none; 
         }
 
+        /* Subtle glowing red accent in the corner */
         .service-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.95) 100%);
+            bottom: -30px;
+            right: -30px;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, rgba(211,0,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
             z-index: 1;
-            transition: background 0.25s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease;
         }
 
-        /* UX: Hover State */
         .service-card:hover {
             transform: translateY(-3px) scale(1.02); 
             border-color: var(--fyr-red);
-            box-shadow: 0 5px 15px rgba(211,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(211,0,0,0.15);
         }
 
-        /* UX: Tactile Tap Feedback */
+        /* Flare up the red accent on hover */
+        .service-card:hover::before, .service-card:focus-visible::before {
+            transform: scale(1.5);
+            background: radial-gradient(circle, rgba(211,0,0,0.25) 0%, transparent 70%);
+        }
+
         .service-card:active {
             transform: scale(0.96); 
         }
 
-        /* UX: Keyboard Accessibility */
         .service-card:focus-visible {
             border-color: var(--fyr-red);
             box-shadow: 0 0 0 3px rgba(211,0,0,0.5);
-        }
-
-        .service-card:hover::before, .service-card:focus-visible::before {
-            background: linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.85) 100%);
         }
 
         .service-content {
@@ -206,7 +204,6 @@
             line-height: 1.2;
             text-transform: uppercase;
             margin-bottom: 0.15rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .service-sub {
@@ -215,10 +212,8 @@
             font-weight: 600;
             text-transform: uppercase;
             line-height: 1.2;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -255,7 +250,6 @@
 
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
 
-        /* UX: Fat-finger optimized close button */
         .close-btn {
             position: absolute;
             top: 0.5rem;
@@ -314,7 +308,7 @@
             padding: 2.5rem 1rem;
             border: 1px solid var(--fyr-red);
             border-radius: 8px;
-            margin-bottom: 5rem; /* Space so the FAB doesn't hide text */
+            margin-bottom: 5rem; 
         }
 
         .book-now {
@@ -359,7 +353,6 @@
         .yt-btn { background-color: var(--yt-red); color: #ffffff; border: none; }
         .yt-btn:hover { background-color: #cc0000; border: none; }
 
-        /* UX: Floating Action Button (FAB) */
         .fab-wa {
             position: fixed;
             bottom: 20px;
@@ -448,8 +441,7 @@
             <div class="services-grid">
                 
                 <div class="reveal-left">
-                    <!-- Direct Unsplash CDN Image: Engine wiring / Repair -->
-                    <div class="service-card" tabindex="0" onclick="openModal('auto')" onkeydown="handleKey(event, 'auto')" style="background-image: url('https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('auto')" onkeydown="handleKey(event, 'auto')">
                         <div class="service-content">
                             <div class="service-title">Auto Electrical</div>
                             <div class="service-sub">Fault Finding</div>
@@ -458,8 +450,7 @@
                 </div>
                 
                 <div class="reveal-right">
-                    <!-- Direct Unsplash CDN Image: Mechanic working -->
-                    <div class="service-card" tabindex="0" onclick="openModal('starter')" onkeydown="handleKey(event, 'starter')" style="background-image: url('https://images.unsplash.com/photo-1661770114976-76657acfd2bc?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('starter')" onkeydown="handleKey(event, 'starter')">
                         <div class="service-content">
                             <div class="service-title">Starter</div>
                             <div class="service-sub">Rebuilding</div>
@@ -468,8 +459,7 @@
                 </div>
                 
                 <div class="reveal-left">
-                    <!-- Direct Unsplash CDN Image: Alternator/Engine Bay -->
-                    <div class="service-card" tabindex="0" onclick="openModal('alternator')" onkeydown="handleKey(event, 'alternator')" style="background-image: url('https://images.unsplash.com/photo-1468818438311-4bab781ab9b8?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('alternator')" onkeydown="handleKey(event, 'alternator')">
                         <div class="service-content">
                             <div class="service-title">Alternator</div>
                             <div class="service-sub">Rebuilding</div>
@@ -478,8 +468,7 @@
                 </div>
                 
                 <div class="reveal-right">
-                    <!-- Direct Unsplash CDN Image: Minor Services / Shop -->
-                    <div class="service-card" tabindex="0" onclick="openModal('minor')" onkeydown="handleKey(event, 'minor')" style="background-image: url('https://images.unsplash.com/photo-1659653198503-9ee92c0a5bda?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('minor')" onkeydown="handleKey(event, 'minor')">
                         <div class="service-content">
                             <div class="service-title">Minor Vehicle</div>
                             <div class="service-sub">Services</div>
@@ -488,8 +477,7 @@
                 </div>
                 
                 <div class="reveal-left">
-                    <!-- Direct Unsplash CDN Image: Dashboard -->
-                    <div class="service-card" tabindex="0" onclick="openModal('diag')" onkeydown="handleKey(event, 'diag')" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('diag')" onkeydown="handleKey(event, 'diag')">
                         <div class="service-content">
                             <div class="service-title">Vehicle Diagnostics</div>
                             <div class="service-sub">And Code Clearing</div>
@@ -498,8 +486,7 @@
                 </div>
                 
                 <div class="reveal-right">
-                    <!-- Direct Unsplash CDN Image: Aggressive Headlights -->
-                    <div class="service-card" tabindex="0" onclick="openModal('led')" onkeydown="handleKey(event, 'led')" style="background-image: url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('led')" onkeydown="handleKey(event, 'led')">
                         <div class="service-content">
                             <div class="service-title">LED / Light</div>
                             <div class="service-sub">Upgrades</div>
@@ -508,8 +495,7 @@
                 </div>
                 
                 <div class="reveal-left">
-                    <!-- Direct Unsplash CDN Image: Cockpit / Dashcam view -->
-                    <div class="service-card" tabindex="0" onclick="openModal('dashcam')" onkeydown="handleKey(event, 'dashcam')" style="background-image: url('https://images.unsplash.com/photo-1600713753696-6e84d436c846?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('dashcam')" onkeydown="handleKey(event, 'dashcam')">
                         <div class="service-content">
                             <div class="service-title">Dash Cam</div>
                             <div class="service-sub">Installations</div>
@@ -518,8 +504,7 @@
                 </div>
                 
                 <div class="reveal-right">
-                    <!-- Direct Unsplash CDN Image: Security / CCTV -->
-                    <div class="service-card" tabindex="0" onclick="openModal('cctv')" onkeydown="handleKey(event, 'cctv')" style="background-image: url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" tabindex="0" onclick="openModal('cctv')" onkeydown="handleKey(event, 'cctv')">
                         <div class="service-content">
                             <div class="service-title">CCTV</div>
                             <div class="service-sub">Installations</div>
