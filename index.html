@@ -104,6 +104,7 @@
             gap: 0.75rem; 
         }
 
+        /* Removed <a> tag styles, updated for <div> buttons */
         .service-card {
             position: relative;
             background-size: cover;
@@ -113,17 +114,15 @@
             padding: 1.25rem 0.75rem; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Pushes text to the bottom over the dark gradient */
-            text-decoration: none; 
+            justify-content: flex-end; 
             color: inherit; 
             cursor: pointer;
-            height: 110px; /* Gives cards consistent height for imagery */
+            height: 110px; 
             overflow: hidden;
             border-radius: 4px;
             transition: transform 0.25s ease, border-color 0.25s ease;
         }
 
-        /* Dark gradient overlay so text remains readable over photos */
         .service-card::before {
             content: '';
             position: absolute;
@@ -131,7 +130,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.92) 100%);
+            background: linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.95) 100%);
             z-index: 1;
             transition: background 0.25s ease;
         }
@@ -142,13 +141,13 @@
         }
 
         .service-card:hover::before {
-            background: linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.85) 100%);
+            background: linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.9) 100%);
         }
 
-        /* Ensure card text stays above the gradient overlay */
         .service-content {
             position: relative;
             z-index: 2;
+            pointer-events: none; /* Prevents text from interfering with clicks */
         }
 
         .service-title {
@@ -167,6 +166,87 @@
             text-transform: uppercase;
             line-height: 1.2;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: var(--surface-dark);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--fyr-red);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem 1.5rem;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--fyr-red);
+        }
+
+        #modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        #modal-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        #modal-wa-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
         }
 
         /* GUARANTEES BAR */
@@ -340,91 +420,91 @@
         </header>
 
         <div class="intro-text reveal">
-            FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available.
+            FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available. 🚗⚡
         </div>
 
         <section>
             <h2 class="section-title reveal">Specialise In</h2>
             <div class="services-grid">
                 
-                <!-- 1. Auto Electrical -->
+                <!-- 1. Auto Electrical - JDM Engine Bay Vibe -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Auto%20Electrical%20Fault%20Finding" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('auto')" style="background-image: url('https://images.unsplash.com/photo-1604077478051-ce0b61f226be?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Auto Electrical</div>
                             <div class="service-sub">Fault Finding</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
                 <!-- 2. Starter Rebuilding -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Starter%20Rebuilding" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('starter')" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Starter</div>
                             <div class="service-sub">Rebuilding</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
                 <!-- 3. Alternator Rebuilding -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Alternator%20Rebuilding" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('alternator')" style="background-image: url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Alternator</div>
                             <div class="service-sub">Rebuilding</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
-                <!-- 4. Minor Vehicle Services -->
+                <!-- 4. Minor Vehicle Services - JDM Classic / Supra Vibe -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Minor%20Vehicle%20Services" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('minor')" style="background-image: url('https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Minor Vehicle</div>
                             <div class="service-sub">Services</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
-                <!-- 5. Vehicle Diagnostics -->
+                <!-- 5. Vehicle Diagnostics - GTR Interior Vibe -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Vehicle%20Diagnostics%20and%20Code%20Clearing" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('diag')" style="background-image: url('https://images.unsplash.com/photo-1596700685934-08fb7f59d571?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Vehicle Diagnostics</div>
                             <div class="service-sub">And Code Clearing</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
-                <!-- 6. LED / Light Upgrades -->
+                <!-- 6. LED / Light Upgrades - RX7 Popups / JDM Night Vibe -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20LED%20/%20Light%20Upgrades" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('led')" style="background-image: url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">LED / Light</div>
                             <div class="service-sub">Upgrades</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
                 <!-- 7. Dash Cam Installations -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Dash%20Cam%20Installations" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('dashcam')" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">Dash Cam</div>
                             <div class="service-sub">Installations</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 
                 <!-- 8. CCTV Installations -->
                 <div class="reveal">
-                    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20CCTV%20Installations" target="_blank" class="service-card" style="background-image: url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('cctv')" style="background-image: url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80');">
                         <div class="service-content">
                             <div class="service-title">CCTV</div>
                             <div class="service-sub">Installations</div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -454,8 +534,94 @@
 
     </div>
 
-    <!-- Scroll Reveal Logic -->
+    <!-- THE MODAL OVERLAY -->
+    <div class="modal-overlay" id="serviceModal" onclick="closeModal(event)">
+        <div class="modal-box">
+            <button class="close-btn" onclick="forceCloseModal()">&times;</button>
+            <div id="modal-title">Service Title</div>
+            <div id="modal-desc">Service Description goes here...</div>
+            <a href="#" id="modal-wa-btn" target="_blank" class="contact-btn wa-btn">💬 Book this Service</a>
+        </div>
+    </div>
+
+    <!-- Script Logic for Reveals and Modals -->
     <script>
+        // --- 1. Content for the Modals ---
+        const serviceData = {
+            'auto': {
+                title: 'Auto Electrical Fault Finding',
+                desc: 'Got a gremlin in the system? We specialize in tracing and repairing complex wiring issues, sensor failures, and electrical drains to keep your vehicle running perfectly.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Auto Electrical Fault Finding'
+            },
+            'starter': {
+                title: 'Starter Rebuilding',
+                desc: 'Don’t let a dead starter leave you stranded. We offer complete starter motor diagnostics, repair, and rebuilding to restore your ignition system to factory reliability.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Starter Rebuilding'
+            },
+            'alternator': {
+                title: 'Alternator Rebuilding',
+                desc: 'Is your battery not holding a charge? We professionally test, repair, and rebuild alternators to ensure your electrical systems are getting the power they need.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Alternator Rebuilding'
+            },
+            'minor': {
+                title: 'Minor Vehicle Services',
+                desc: 'Keep your daily driver or weekend project in peak condition. We handle routine maintenance, oil changes, filter replacements, and general mechanical health checks.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Minor Vehicle Services'
+            },
+            'diag': {
+                title: 'Vehicle Diagnostics',
+                desc: 'Dashboard lit up like a Christmas tree? We use advanced OBD2 scanning to pinpoint engine codes, clear lights, and give you an accurate breakdown of the issue.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Vehicle Diagnostics'
+            },
+            'led': {
+                title: 'LED & Light Upgrades',
+                desc: 'Upgrade your nighttime visibility and give your ride a sharper, modern look. We handle high-performance LED headlight conversions, interior lighting, and custom installs.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about LED / Light Upgrades'
+            },
+            'dashcam': {
+                title: 'Dash Cam Installations',
+                desc: 'Protect yourself on the road with reliable, continuous recording. We provide seamless, professional hardwired dash cam setups with all the messy cables hidden away.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Dash Cam Installations'
+            },
+            'cctv': {
+                title: 'CCTV Installations',
+                desc: 'Security isn\'t just for your car. We also provide professional CCTV camera installations for your home, garage, or workshop to keep your property totally secure.',
+                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about CCTV Installations'
+            }
+        };
+
+        // --- 2. Modal Functions ---
+        const modal = document.getElementById('serviceModal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalWaBtn = document.getElementById('modal-wa-btn');
+        const baseWaUrl = "https://wa.me/27610956964?text=";
+
+        function openModal(serviceId) {
+            const data = serviceData[serviceId];
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+            
+            // Encode the specific WhatsApp message so spaces don't break the URL
+            modalWaBtn.href = baseWaUrl + encodeURIComponent(data.waMsg);
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevents scrolling behind modal
+        }
+
+        function closeModal(event) {
+            // Only close if they click the dark overlay background, not the box itself
+            if(event.target === modal) {
+                forceCloseModal();
+            }
+        }
+
+        function forceCloseModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enables scrolling
+        }
+
+        // --- 3. Scroll Reveal Logic ---
         document.addEventListener('DOMContentLoaded', () => {
             const reveals = document.querySelectorAll('.reveal');
 
