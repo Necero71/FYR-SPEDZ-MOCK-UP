@@ -34,18 +34,41 @@
             overflow-x: hidden; 
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1.5rem 1rem;
+        /* NEW: Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background-color: var(--fyr-red);
+            width: 0%;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(211, 0, 0, 0.8);
+            transition: width 0.1s ease-out;
         }
 
-        /* HEADER SECTION */
+        /* NEW: Sticky Glass Header */
         header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
             text-align: center;
-            margin-bottom: 2rem;
+            padding-top: 1.5rem;
             padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid transparent;
+            background-color: var(--bg-dark);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            background-color: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px); /* Glassmorphism effect */
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .logo {
@@ -57,11 +80,15 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 0.5rem;
+            transition: font-size 0.3s ease;
         }
 
-        .logo span {
-            color: var(--fyr-red);
+        header.scrolled .logo {
+            font-size: 8vw; /* Shrinks on scroll */
+            margin-bottom: 0;
         }
+
+        .logo span { color: var(--fyr-red); }
 
         .tagline {
             color: var(--fyr-red);
@@ -69,6 +96,19 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             text-transform: uppercase;
+            transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+        header.scrolled .tagline {
+            opacity: 0; /* Fades out tagline to save space */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem 1.5rem 1rem;
         }
 
         .intro-text {
@@ -82,9 +122,7 @@
             margin-right: auto;
         }
 
-        section {
-            margin-bottom: 3rem;
-        }
+        section { margin-bottom: 3rem; }
 
         .section-title {
             font-family: 'Montserrat', sans-serif;
@@ -106,7 +144,7 @@
             position: relative;
             background-size: cover;
             background-position: center;
-            background-color: #1a1a1a; /* Fallback color if image is missing */
+            background-color: #1a1a1a;
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--fyr-red);
             padding: 1.25rem 0.75rem; 
@@ -134,12 +172,12 @@
         }
 
         .service-card:hover {
-            transform: translateY(-3px); 
+            transform: translateY(-3px) scale(1.02); /* Slight pop effect */
             border-color: var(--fyr-red);
         }
 
         .service-card:hover::before {
-            background: linear-gradient(180deg, rgba(5,5,5,0.2) 0%, rgba(5,5,5,0.9) 100%);
+            background: linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.85) 100%);
         }
 
         .service-content {
@@ -166,6 +204,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
+        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -173,8 +212,8 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 100;
+            backdrop-filter: blur(6px);
+            z-index: 200;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -184,10 +223,7 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-box {
             background-color: var(--surface-dark);
@@ -202,9 +238,7 @@
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .modal-overlay.active .modal-box {
-            transform: translateY(0) scale(1);
-        }
+        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
 
         .close-btn {
             position: absolute;
@@ -219,9 +253,7 @@
             line-height: 1;
         }
 
-        .close-btn:hover {
-            color: var(--fyr-red);
-        }
+        .close-btn:hover { color: var(--fyr-red); }
 
         #modal-title {
             font-family: 'Montserrat', sans-serif;
@@ -240,11 +272,7 @@
             line-height: 1.6;
         }
 
-        #modal-wa-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
+        #modal-wa-btn { display: block; width: 100%; text-align: center; }
 
         .guarantees {
             display: flex;
@@ -258,15 +286,8 @@
             border: 1px solid var(--border-color);
         }
 
-        .guarantee-item {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        
-        .guarantee-item span {
-            color: var(--fyr-red);
-            display: block;
-        }
+        .guarantee-item { font-weight: 600; font-size: 0.95rem; }
+        .guarantee-item span { color: var(--fyr-red); display: block; }
 
         .cta-section {
             text-align: center;
@@ -311,27 +332,10 @@
             border-color: var(--fyr-red-hover);
         }
 
-        .wa-btn {
-            background-color: var(--wa-green);
-            color: #000;
-            border: none;
-        }
-
-        .wa-btn:hover {
-            background-color: #1ebe5d;
-            border: none;
-        }
-
-        .yt-btn {
-            background-color: var(--yt-red);
-            color: #ffffff;
-            border: none;
-        }
-
-        .yt-btn:hover {
-            background-color: #cc0000;
-            border: none;
-        }
+        .wa-btn { background-color: var(--wa-green); color: #000; border: none; }
+        .wa-btn:hover { background-color: #1ebe5d; border: none; }
+        .yt-btn { background-color: var(--yt-red); color: #ffffff; border: none; }
+        .yt-btn:hover { background-color: #cc0000; border: none; }
 
         .location {
             margin-top: 1.5rem;
@@ -341,21 +345,25 @@
             font-size: 0.9rem;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
+        /* NEW: Directional Animation Classes */
+        .reveal-up { transform: translateY(40px); opacity: 0; }
+        .reveal-left { transform: translateX(-40px); opacity: 0; }
+        .reveal-right { transform: translateX(40px); opacity: 0; }
+
+        .reveal-up, .reveal-left, .reveal-right {
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform; 
         }
 
-        .reveal.active {
+        .reveal-up.active, .reveal-left.active, .reveal-right.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(0);
         }
 
         @media(min-width: 600px) {
-            .container { padding: 3rem 1.5rem; }
+            .container { padding: 0 1.5rem 3rem 1.5rem; }
             .logo { font-size: 3.5rem; }
+            header.scrolled .logo { font-size: 2.5rem; }
             .tagline { font-size: 1.1rem; }
             .intro-text { font-size: 1.1rem; }
             .section-title { font-size: 1.8rem; text-align: left; }
@@ -371,23 +379,26 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        
-        <header class="reveal">
-            <div class="logo"><span>FYR_</span>SPEEDZ</div>
-            <div class="tagline">Book to avoid disappointment</div>
-        </header>
 
-        <div class="intro-text reveal">
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
+    <header id="main-header">
+        <div class="logo"><span>FYR_</span>SPEEDZ</div>
+        <div class="tagline">Book to avoid disappointment</div>
+    </header>
+
+    <div class="container">
+
+        <div class="intro-text reveal-up">
             FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available. 🚗⚡
         </div>
 
         <section>
-            <h2 class="section-title reveal">Specialise In</h2>
+            <h2 class="section-title reveal-up">Specialise In</h2>
             <div class="services-grid">
                 
-                <!-- Notice the background-image paths now point to local files -->
-                <div class="reveal">
+                <!-- Left Column Slides in from Left -->
+                <div class="reveal-left">
                     <div class="service-card" onclick="openModal('auto')" style="background-image: url('images/auto.jpg');">
                         <div class="service-content">
                             <div class="service-title">Auto Electrical</div>
@@ -396,7 +407,8 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <!-- Right Column Slides in from Right -->
+                <div class="reveal-right">
                     <div class="service-card" onclick="openModal('starter')" style="background-image: url('images/starter.jpg');">
                         <div class="service-content">
                             <div class="service-title">Starter</div>
@@ -405,7 +417,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-left">
                     <div class="service-card" onclick="openModal('alternator')" style="background-image: url('images/alternator.jpg');">
                         <div class="service-content">
                             <div class="service-title">Alternator</div>
@@ -414,7 +426,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-right">
                     <div class="service-card" onclick="openModal('minor')" style="background-image: url('images/minor.jpg');">
                         <div class="service-content">
                             <div class="service-title">Minor Vehicle</div>
@@ -423,7 +435,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-left">
                     <div class="service-card" onclick="openModal('diag')" style="background-image: url('images/diag.jpg');">
                         <div class="service-content">
                             <div class="service-title">Vehicle Diagnostics</div>
@@ -432,7 +444,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-right">
                     <div class="service-card" onclick="openModal('led')" style="background-image: url('images/led.jpg');">
                         <div class="service-content">
                             <div class="service-title">LED / Light</div>
@@ -441,7 +453,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-left">
                     <div class="service-card" onclick="openModal('dashcam')" style="background-image: url('images/dashcam.jpg');">
                         <div class="service-content">
                             <div class="service-title">Dash Cam</div>
@@ -450,7 +462,7 @@
                     </div>
                 </div>
                 
-                <div class="reveal">
+                <div class="reveal-right">
                     <div class="service-card" onclick="openModal('cctv')" style="background-image: url('images/cctv.jpg');">
                         <div class="service-content">
                             <div class="service-title">CCTV</div>
@@ -461,13 +473,13 @@
             </div>
         </section>
 
-        <div class="guarantees reveal">
+        <div class="guarantees reveal-up">
             <div class="guarantee-item">QUALITY <span>WORKMANSHIP</span></div>
             <div class="guarantee-item">RELIABLE <span>SERVICE</span></div>
             <div class="guarantee-item">FAST <span>TURNAROUND</span></div>
         </div>
 
-        <div class="cta-section reveal">
+        <div class="cta-section reveal-up">
             <div class="book-now">BOOK NOW</div>
             <div class="tagline">To Avoid Disappointment</div>
             
@@ -498,49 +510,19 @@
 
     <!-- Script Logic -->
     <script>
+        // Data for Modals
         const serviceData = {
-            'auto': {
-                title: 'Auto Electrical Fault Finding',
-                desc: 'Got a gremlin in the system? We specialize in tracing and repairing complex wiring issues, sensor failures, and electrical drains to keep your vehicle running perfectly.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Auto Electrical Fault Finding'
-            },
-            'starter': {
-                title: 'Starter Rebuilding',
-                desc: 'Don’t let a dead starter leave you stranded. We offer complete starter motor diagnostics, repair, and rebuilding to restore your ignition system to factory reliability.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Starter Rebuilding'
-            },
-            'alternator': {
-                title: 'Alternator Rebuilding',
-                desc: 'Is your battery not holding a charge? We professionally test, repair, and rebuild alternators to ensure your electrical systems are getting the power they need.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Alternator Rebuilding'
-            },
-            'minor': {
-                title: 'Minor Vehicle Services',
-                desc: 'Keep your daily driver or weekend project in peak condition. We handle routine maintenance, oil changes, filter replacements, and general mechanical health checks.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Minor Vehicle Services'
-            },
-            'diag': {
-                title: 'Vehicle Diagnostics',
-                desc: 'Dashboard lit up like a Christmas tree? We use advanced OBD2 scanning to pinpoint engine codes, clear lights, and give you an accurate breakdown of the issue.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Vehicle Diagnostics'
-            },
-            'led': {
-                title: 'LED & Light Upgrades',
-                desc: 'Upgrade your nighttime visibility and give your ride a sharper, modern look. We handle high-performance LED headlight conversions, interior lighting, and custom installs.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about LED / Light Upgrades'
-            },
-            'dashcam': {
-                title: 'Dash Cam Installations',
-                desc: 'Protect yourself on the road with reliable, continuous recording. We provide seamless, professional hardwired dash cam setups with all the messy cables hidden away.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Dash Cam Installations'
-            },
-            'cctv': {
-                title: 'CCTV Installations',
-                desc: 'Security isn\'t just for your car. We also provide professional CCTV camera installations for your home, garage, or workshop to keep your property totally secure.',
-                waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about CCTV Installations'
-            }
+            'auto': { title: 'Auto Electrical Fault Finding', desc: 'Got a gremlin in the system? We specialize in tracing and repairing complex wiring issues, sensor failures, and electrical drains to keep your vehicle running perfectly.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Auto Electrical Fault Finding' },
+            'starter': { title: 'Starter Rebuilding', desc: 'Don’t let a dead starter leave you stranded. We offer complete starter motor diagnostics, repair, and rebuilding to restore your ignition system to factory reliability.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Starter Rebuilding' },
+            'alternator': { title: 'Alternator Rebuilding', desc: 'Is your battery not holding a charge? We professionally test, repair, and rebuild alternators to ensure your electrical systems are getting the power they need.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Alternator Rebuilding' },
+            'minor': { title: 'Minor Vehicle Services', desc: 'Keep your daily driver or weekend project in peak condition. We handle routine maintenance, oil changes, filter replacements, and general mechanical health checks.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Minor Vehicle Services' },
+            'diag': { title: 'Vehicle Diagnostics', desc: 'Dashboard lit up like a Christmas tree? We use advanced OBD2 scanning to pinpoint engine codes, clear lights, and give you an accurate breakdown of the issue.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Vehicle Diagnostics' },
+            'led': { title: 'LED & Light Upgrades', desc: 'Upgrade your nighttime visibility and give your ride a sharper, modern look. We handle high-performance LED headlight conversions, interior lighting, and custom installs.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about LED / Light Upgrades' },
+            'dashcam': { title: 'Dash Cam Installations', desc: 'Protect yourself on the road with reliable, continuous recording. We provide seamless, professional hardwired dash cam setups with all the messy cables hidden away.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Dash Cam Installations' },
+            'cctv': { title: 'CCTV Installations', desc: 'Security isn\'t just for your car. We also provide professional CCTV camera installations for your home, garage, or workshop to keep your property totally secure.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about CCTV Installations' }
         };
 
+        // Modal Functions
         const modal = document.getElementById('serviceModal');
         const modalTitle = document.getElementById('modal-title');
         const modalDesc = document.getElementById('modal-desc');
@@ -551,27 +533,38 @@
             const data = serviceData[serviceId];
             modalTitle.textContent = data.title;
             modalDesc.textContent = data.desc;
-            
             modalWaBtn.href = baseWaUrl + encodeURIComponent(data.waMsg);
-            
             modal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
         }
 
-        function closeModal(event) {
-            if(event.target === modal) {
-                forceCloseModal();
-            }
-        }
+        function closeModal(event) { if(event.target === modal) forceCloseModal(); }
+        function forceCloseModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
 
-        function forceCloseModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; 
-        }
-
+        // Interactive Scroll Engine
         document.addEventListener('DOMContentLoaded', () => {
-            const reveals = document.querySelectorAll('.reveal');
+            
+            // 1. Progress Bar & Sticky Header
+            const header = document.getElementById('main-header');
+            const progressBar = document.getElementById('scroll-progress');
+            
+            window.addEventListener('scroll', () => {
+                // Header Glassmorphism trigger
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Progress Bar Math
+                const totalScroll = document.documentElement.scrollTop;
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scroll = `${totalScroll / windowHeight * 100}%`;
+                progressBar.style.width = scroll;
+            });
 
+            // 2. Intersection Observer for Reveals
+            const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
             const revealOnScroll = new IntersectionObserver((entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -581,17 +574,17 @@
                 });
             }, {
                 threshold: 0.15,
-                rootMargin: "0px 0px -30px 0px"
+                rootMargin: "0px 0px -20px 0px"
             });
 
-            const gridItems = document.querySelectorAll('.services-grid .reveal');
-            gridItems.forEach((item, index) => {
-                item.style.transitionDelay = `${(index % 2) * 0.1}s`; 
-            });
+            // Stagger the grid items for a smooth cascade
+            const leftCards = document.querySelectorAll('.reveal-left');
+            const rightCards = document.querySelectorAll('.reveal-right');
+            
+            leftCards.forEach((item, index) => item.style.transitionDelay = `${index * 0.1}s`);
+            rightCards.forEach((item, index) => item.style.transitionDelay = `${(index * 0.1) + 0.1}s`);
 
-            reveals.forEach((reveal) => {
-                revealOnScroll.observe(reveal);
-            });
+            revealElements.forEach((reveal) => revealOnScroll.observe(reveal));
         });
     </script>
 </body>
