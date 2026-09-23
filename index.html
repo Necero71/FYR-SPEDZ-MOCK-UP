@@ -71,7 +71,6 @@
             text-transform: uppercase;
         }
 
-        /* ABOUT / INTRO SECTION */
         .intro-text {
             text-align: center;
             color: var(--text-muted);
@@ -83,7 +82,6 @@
             margin-right: auto;
         }
 
-        /* SERVICES GRID */
         section {
             margin-bottom: 3rem;
         }
@@ -108,6 +106,7 @@
             position: relative;
             background-size: cover;
             background-position: center;
+            background-color: #1a1a1a; /* Fallback color if image is missing */
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--fyr-red);
             padding: 1.25rem 0.75rem; 
@@ -167,7 +166,6 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -248,7 +246,6 @@
             text-align: center;
         }
 
-        /* GUARANTEES BAR */
         .guarantees {
             display: flex;
             flex-direction: column;
@@ -271,7 +268,6 @@
             display: block;
         }
 
-        /* CTA & CONTACT SECTION */
         .cta-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-dark) 0%, #1a0000 100%);
@@ -345,7 +341,6 @@
             font-size: 0.9rem;
         }
 
-        /* ANIMATION CLASSES */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -358,55 +353,20 @@
             transform: translateY(0);
         }
 
-        /* DESKTOP OVERRIDES */
         @media(min-width: 600px) {
-            .container {
-                padding: 3rem 1.5rem;
-            }
-            .logo {
-                font-size: 3.5rem;
-            }
-            .tagline {
-                font-size: 1.1rem;
-            }
-            .intro-text {
-                font-size: 1.1rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-                text-align: left;
-            }
-            .services-grid {
-                gap: 1rem;
-            }
-            .service-card {
-                height: 130px; 
-                padding: 1.25rem;
-                border-left: 4px solid var(--fyr-red);
-            }
-            .service-title {
-                font-size: 1.1rem; 
-                margin-bottom: 0.25rem;
-            }
-            .service-sub {
-                font-size: 0.85rem;
-            }
-            .guarantees {
-                flex-direction: row;
-                justify-content: space-around;
-            }
-            .book-now {
-                font-size: 2.5rem;
-            }
-            .contact-info {
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 1.5rem;
-            }
-            .contact-btn {
-                min-width: 250px;
-            }
+            .container { padding: 3rem 1.5rem; }
+            .logo { font-size: 3.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .intro-text { font-size: 1.1rem; }
+            .section-title { font-size: 1.8rem; text-align: left; }
+            .services-grid { gap: 1rem; }
+            .service-card { height: 130px; padding: 1.25rem; border-left: 4px solid var(--fyr-red); }
+            .service-title { font-size: 1.1rem; margin-bottom: 0.25rem; }
+            .service-sub { font-size: 0.85rem; }
+            .guarantees { flex-direction: row; justify-content: space-around; }
+            .book-now { font-size: 2.5rem; }
+            .contact-info { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+            .contact-btn { min-width: 250px; }
         }
     </style>
 </head>
@@ -426,9 +386,9 @@
             <h2 class="section-title reveal">Specialise In</h2>
             <div class="services-grid">
                 
-                <!-- 1. Auto Electrical - Wiring close up -->
+                <!-- Notice the background-image paths now point to local files -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('auto')" style="background-image: url('https://images.unsplash.com/photo-1590209425555-5264b38d781b?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('auto')" style="background-image: url('images/auto.jpg');">
                         <div class="service-content">
                             <div class="service-title">Auto Electrical</div>
                             <div class="service-sub">Fault Finding</div>
@@ -436,9 +396,8 @@
                     </div>
                 </div>
                 
-                <!-- 2. Starter Rebuilding - Engine bay repair -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('starter')" style="background-image: url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('starter')" style="background-image: url('images/starter.jpg');">
                         <div class="service-content">
                             <div class="service-title">Starter</div>
                             <div class="service-sub">Rebuilding</div>
@@ -446,9 +405,8 @@
                     </div>
                 </div>
                 
-                <!-- 3. Alternator Rebuilding - Engine close up -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('alternator')" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('alternator')" style="background-image: url('images/alternator.jpg');">
                         <div class="service-content">
                             <div class="service-title">Alternator</div>
                             <div class="service-sub">Rebuilding</div>
@@ -456,9 +414,8 @@
                     </div>
                 </div>
                 
-                <!-- 4. Minor Vehicle Services - Oil/Mechanic -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('minor')" style="background-image: url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('minor')" style="background-image: url('images/minor.jpg');">
                         <div class="service-content">
                             <div class="service-title">Minor Vehicle</div>
                             <div class="service-sub">Services</div>
@@ -466,9 +423,8 @@
                     </div>
                 </div>
                 
-                <!-- 5. Vehicle Diagnostics - Dashboard lights -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('diag')" style="background-image: url('https://images.unsplash.com/photo-1600713753696-6e84d436c846?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('diag')" style="background-image: url('images/diag.jpg');">
                         <div class="service-content">
                             <div class="service-title">Vehicle Diagnostics</div>
                             <div class="service-sub">And Code Clearing</div>
@@ -476,9 +432,8 @@
                     </div>
                 </div>
                 
-                <!-- 6. LED / Light Upgrades - Aggressive headlights -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('led')" style="background-image: url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('led')" style="background-image: url('images/led.jpg');">
                         <div class="service-content">
                             <div class="service-title">LED / Light</div>
                             <div class="service-sub">Upgrades</div>
@@ -486,9 +441,8 @@
                     </div>
                 </div>
                 
-                <!-- 7. Dash Cam Installations - Interior windshield view -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('dashcam')" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('dashcam')" style="background-image: url('images/dashcam.jpg');">
                         <div class="service-content">
                             <div class="service-title">Dash Cam</div>
                             <div class="service-sub">Installations</div>
@@ -496,9 +450,8 @@
                     </div>
                 </div>
                 
-                <!-- 8. CCTV Installations - Security Camera -->
                 <div class="reveal">
-                    <div class="service-card" onclick="openModal('cctv')" style="background-image: url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80');">
+                    <div class="service-card" onclick="openModal('cctv')" style="background-image: url('images/cctv.jpg');">
                         <div class="service-content">
                             <div class="service-title">CCTV</div>
                             <div class="service-sub">Installations</div>
