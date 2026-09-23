@@ -34,7 +34,7 @@
             overflow-x: hidden; 
         }
 
-        /* Scroll Progress Bar */
+        /* UX: Scroll Progress Bar */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -47,7 +47,7 @@
             transition: width 0.1s ease-out;
         }
 
-        /* Sticky Glass Header */
+        /* UX: Sticky Glass Header */
         header {
             position: sticky;
             top: 0;
@@ -157,7 +157,7 @@
             overflow: hidden;
             border-radius: 4px;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            outline: none; /* Removed default outline for custom focus */
+            outline: none; 
         }
 
         .service-card::before {
@@ -190,7 +190,7 @@
             box-shadow: 0 0 0 3px rgba(211,0,0,0.5);
         }
 
-        .service-card:hover::before {
+        .service-card:hover::before, .service-card:focus-visible::before {
             background: linear-gradient(180deg, rgba(5,5,5,0.1) 0%, rgba(5,5,5,0.85) 100%);
         }
 
@@ -247,7 +247,7 @@
             border-radius: 8px;
             width: 100%;
             max-width: 500px;
-            padding: 2.5rem 1.5rem 2rem 1.5rem; /* Increased top padding to avoid close button overlap */
+            padding: 2.5rem 1.5rem 2rem 1.5rem; 
             position: relative;
             transform: translateY(20px) scale(0.95);
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -265,7 +265,7 @@
             cursor: pointer;
             background: none;
             border: none;
-            padding: 0.5rem; /* Much easier to tap */
+            padding: 0.5rem; 
             line-height: 1;
             transition: color 0.2s ease;
         }
@@ -293,14 +293,28 @@
 
         #modal-wa-btn { display: block; width: 100%; text-align: center; }
 
-        /* CTA & CONTACT SECTION */
+        .guarantees {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            background-color: var(--surface-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .guarantee-item { font-weight: 600; font-size: 0.95rem; }
+        .guarantee-item span { color: var(--fyr-red); display: block; }
+
         .cta-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-dark) 0%, #1a0000 100%);
             padding: 2.5rem 1rem;
             border: 1px solid var(--fyr-red);
             border-radius: 8px;
-            margin-bottom: 5rem; /* Give space for FAB */
+            margin-bottom: 5rem; /* Space so the FAB doesn't hide text */
         }
 
         .book-now {
@@ -338,7 +352,6 @@
             border-color: var(--fyr-red-hover);
         }
 
-        /* UX: Tactile tap on buttons */
         .contact-btn:active { transform: scale(0.97); }
 
         .wa-btn { background-color: var(--wa-green); color: #000; border: none; }
@@ -346,7 +359,7 @@
         .yt-btn { background-color: var(--yt-red); color: #ffffff; border: none; }
         .yt-btn:hover { background-color: #cc0000; border: none; }
 
-        /* UX: Floating Action Button */
+        /* UX: Floating Action Button (FAB) */
         .fab-wa {
             position: fixed;
             bottom: 20px;
@@ -380,5 +393,260 @@
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.9rem;
-       
+        }
 
+        .reveal-up { transform: translateY(40px); opacity: 0; }
+        .reveal-left { transform: translateX(-40px); opacity: 0; }
+        .reveal-right { transform: translateX(40px); opacity: 0; }
+
+        .reveal-up, .reveal-left, .reveal-right {
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: opacity, transform; 
+        }
+
+        .reveal-up.active, .reveal-left.active, .reveal-right.active {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        @media(min-width: 600px) {
+            .container { padding: 0 1.5rem 3rem 1.5rem; }
+            .logo { font-size: 3.5rem; }
+            header.scrolled .logo { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .intro-text { font-size: 1.1rem; }
+            .section-title { font-size: 1.8rem; text-align: left; }
+            .services-grid { gap: 1rem; }
+            .service-card { height: 130px; padding: 1.25rem; border-left: 4px solid var(--fyr-red); }
+            .service-title { font-size: 1.1rem; margin-bottom: 0.25rem; }
+            .service-sub { font-size: 0.85rem; }
+            .guarantees { flex-direction: row; justify-content: space-around; }
+            .book-now { font-size: 2.5rem; }
+            .contact-info { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
+            .contact-btn { min-width: 250px; }
+            .fab-wa { bottom: 30px; right: 30px; width: 70px; height: 70px; font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
+    <header id="main-header">
+        <div class="logo"><span>FYR_</span>SPEEDZ</div>
+        <div class="tagline">Book to avoid disappointment</div>
+    </header>
+
+    <div class="container">
+
+        <div class="intro-text reveal-up">
+            FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available. 🚗⚡
+        </div>
+
+        <section>
+            <h2 class="section-title reveal-up">Specialise In</h2>
+            <div class="services-grid">
+                
+                <!-- UX: Added tabindex and onkeydown for keyboard navigation -->
+                <div class="reveal-left">
+                    <div class="service-card" tabindex="0" onclick="openModal('auto')" onkeydown="handleKey(event, 'auto')" style="background-image: url('images/auto.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Auto Electrical</div>
+                            <div class="service-sub">Fault Finding</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="service-card" tabindex="0" onclick="openModal('starter')" onkeydown="handleKey(event, 'starter')" style="background-image: url('images/starter.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Starter</div>
+                            <div class="service-sub">Rebuilding</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-left">
+                    <div class="service-card" tabindex="0" onclick="openModal('alternator')" onkeydown="handleKey(event, 'alternator')" style="background-image: url('images/alternator.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Alternator</div>
+                            <div class="service-sub">Rebuilding</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="service-card" tabindex="0" onclick="openModal('minor')" onkeydown="handleKey(event, 'minor')" style="background-image: url('images/minor.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Minor Vehicle</div>
+                            <div class="service-sub">Services</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-left">
+                    <div class="service-card" tabindex="0" onclick="openModal('diag')" onkeydown="handleKey(event, 'diag')" style="background-image: url('images/diag.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Vehicle Diagnostics</div>
+                            <div class="service-sub">And Code Clearing</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="service-card" tabindex="0" onclick="openModal('led')" onkeydown="handleKey(event, 'led')" style="background-image: url('images/led.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">LED / Light</div>
+                            <div class="service-sub">Upgrades</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-left">
+                    <div class="service-card" tabindex="0" onclick="openModal('dashcam')" onkeydown="handleKey(event, 'dashcam')" style="background-image: url('images/dashcam.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">Dash Cam</div>
+                            <div class="service-sub">Installations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal-right">
+                    <div class="service-card" tabindex="0" onclick="openModal('cctv')" onkeydown="handleKey(event, 'cctv')" style="background-image: url('images/cctv.jpg');">
+                        <div class="service-content">
+                            <div class="service-title">CCTV</div>
+                            <div class="service-sub">Installations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="guarantees reveal-up">
+            <div class="guarantee-item">QUALITY <span>WORKMANSHIP</span></div>
+            <div class="guarantee-item">RELIABLE <span>SERVICE</span></div>
+            <div class="guarantee-item">FAST <span>TURNAROUND</span></div>
+        </div>
+
+        <div class="cta-section reveal-up">
+            <div class="book-now">BOOK NOW</div>
+            <div class="tagline">To Avoid Disappointment</div>
+            
+            <div class="contact-info">
+                <a href="tel:+27610956964" class="contact-btn">📞 Fayyaad - 061 095 6964</a>
+                <a href="tel:+27626828245" class="contact-btn">📞 Jashmika - 062 682 8245</a>
+                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20make%20a%20booking!" target="_blank" class="contact-btn wa-btn">💬 Chat on WhatsApp</a>
+                <a href="https://youtube.com/@fyr_speedz?si=4avvTB22L735EMTe" target="_blank" class="contact-btn yt-btn">📺 Visit our YouTube</a>
+            </div>
+
+            <div class="location">
+                📍 Based in Cape Town<br>
+                Mobile Service Available
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Action Button (FAB) -->
+    <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20make%20a%20booking!" target="_blank" class="fab-wa" aria-label="Chat with us on WhatsApp">
+        💬
+    </a>
+
+    <!-- THE MODAL OVERLAY -->
+    <div class="modal-overlay" id="serviceModal" onclick="closeModal(event)">
+        <div class="modal-box" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+            <button class="close-btn" onclick="forceCloseModal()" aria-label="Close Modal">&times;</button>
+            <div id="modal-title">Service Title</div>
+            <div id="modal-desc">Service Description goes here...</div>
+            <a href="#" id="modal-wa-btn" target="_blank" class="contact-btn wa-btn">💬 Book this Service</a>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        const serviceData = {
+            'auto': { title: 'Auto Electrical Fault Finding', desc: 'Got a gremlin in the system? We specialize in tracing and repairing complex wiring issues, sensor failures, and electrical drains to keep your vehicle running perfectly.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Auto Electrical Fault Finding' },
+            'starter': { title: 'Starter Rebuilding', desc: 'Don’t let a dead starter leave you stranded. We offer complete starter motor diagnostics, repair, and rebuilding to restore your ignition system to factory reliability.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Starter Rebuilding' },
+            'alternator': { title: 'Alternator Rebuilding', desc: 'Is your battery not holding a charge? We professionally test, repair, and rebuild alternators to ensure your electrical systems are getting the power they need.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Alternator Rebuilding' },
+            'minor': { title: 'Minor Vehicle Services', desc: 'Keep your daily driver or weekend project in peak condition. We handle routine maintenance, oil changes, filter replacements, and general mechanical health checks.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Minor Vehicle Services' },
+            'diag': { title: 'Vehicle Diagnostics', desc: 'Dashboard lit up like a Christmas tree? We use advanced OBD2 scanning to pinpoint engine codes, clear lights, and give you an accurate breakdown of the issue.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Vehicle Diagnostics' },
+            'led': { title: 'LED & Light Upgrades', desc: 'Upgrade your nighttime visibility and give your ride a sharper, modern look. We handle high-performance LED headlight conversions, interior lighting, and custom installs.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about LED / Light Upgrades' },
+            'dashcam': { title: 'Dash Cam Installations', desc: 'Protect yourself on the road with reliable, continuous recording. We provide seamless, professional hardwired dash cam setups with all the messy cables hidden away.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Dash Cam Installations' },
+            'cctv': { title: 'CCTV Installations', desc: 'Security isn\'t just for your car. We also provide professional CCTV camera installations for your home, garage, or workshop to keep your property totally secure.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about CCTV Installations' }
+        };
+
+        const modal = document.getElementById('serviceModal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalWaBtn = document.getElementById('modal-wa-btn');
+        const baseWaUrl = "https://wa.me/27610956964?text=";
+
+        function openModal(serviceId) {
+            const data = serviceData[serviceId];
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+            modalWaBtn.href = baseWaUrl + encodeURIComponent(data.waMsg);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(event) { if(event.target === modal) forceCloseModal(); }
+        function forceCloseModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        // UX: Keyboard accessibility for cards
+        function handleKey(event, serviceId) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openModal(serviceId);
+            }
+        }
+
+        // UX: Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('active')) {
+                forceCloseModal();
+            }
+        });
+
+        // Interactive Scroll Engine
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+            const progressBar = document.getElementById('scroll-progress');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                const totalScroll = document.documentElement.scrollTop;
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scroll = `${totalScroll / windowHeight * 100}%`;
+                progressBar.style.width = scroll;
+            });
+
+            const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -20px 0px"
+            });
+
+            const leftCards = document.querySelectorAll('.reveal-left');
+            const rightCards = document.querySelectorAll('.reveal-right');
+            
+            leftCards.forEach((item, index) => item.style.transitionDelay = `${index * 0.1}s`);
+            rightCards.forEach((item, index) => item.style.transitionDelay = `${(index * 0.1) + 0.1}s`);
+
+            revealElements.forEach((reveal) => revealOnScroll.observe(reveal));
+        });
+    </script>
+</body>
+</html>
