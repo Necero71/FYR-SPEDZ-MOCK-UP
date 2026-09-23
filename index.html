@@ -14,9 +14,10 @@
             --fyr-red: #d30000;
             --fyr-red-hover: #ff1a1a;
             --text-main: #ffffff;
-            --text-muted: #888888;
+            --text-muted: #aaaaaa; /* Lightened slightly for better reading */
             --border-color: #222222;
             --wa-green: #25D366;
+            --yt-red: #FF0000;
         }
 
         * {
@@ -42,7 +43,7 @@
         /* HEADER SECTION */
         header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 1.5rem;
             border-bottom: 2px solid var(--border-color);
         }
@@ -70,6 +71,18 @@
             text-transform: uppercase;
         }
 
+        /* ABOUT / INTRO SECTION */
+        .intro-text {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* SERVICES GRID */
         section {
             margin-bottom: 3rem;
@@ -87,16 +100,15 @@
 
         .services-grid {
             display: grid;
-            /* Changed to 2 columns on mobile to reduce scrolling */
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem; /* Tighter gap for mobile */
+            gap: 0.5rem; 
         }
 
         .service-card {
             background-color: var(--surface-dark);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--fyr-red);
-            padding: 0.85rem 0.5rem; /* Tighter padding to fit 2-up */
+            padding: 0.85rem 0.5rem; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -104,19 +116,19 @@
             color: inherit; 
             cursor: pointer;
             height: 100%;
-            min-height: 85px; /* Keeps cards uniform if text wraps differently */
+            min-height: 85px; 
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-3px); /* Upward lift feels better on grid cards */
+            transform: translateY(-3px); 
             border-color: var(--fyr-red);
             background-color: #1a1a1a;
         }
 
         .service-title {
             font-weight: 700;
-            font-size: 0.9rem; /* Scaled down for mobile 2-column */
+            font-size: 0.9rem; 
             line-height: 1.2;
             text-transform: uppercase;
             margin-bottom: 0.25rem;
@@ -124,7 +136,7 @@
 
         .service-sub {
             color: var(--fyr-red);
-            font-size: 0.7rem; /* Scaled down for mobile */
+            font-size: 0.7rem; 
             font-weight: 600;
             text-transform: uppercase;
             line-height: 1.2;
@@ -200,11 +212,21 @@
             background-color: var(--wa-green);
             color: #000;
             border: none;
-            margin-top: 0.5rem;
         }
 
         .wa-btn:hover {
             background-color: #1ebe5d;
+            border: none;
+        }
+
+        .yt-btn {
+            background-color: var(--yt-red);
+            color: #ffffff;
+            border: none;
+        }
+
+        .yt-btn:hover {
+            background-color: #cc0000;
             border: none;
         }
 
@@ -240,20 +262,22 @@
             .tagline {
                 font-size: 1.1rem;
             }
+            .intro-text {
+                font-size: 1.1rem;
+            }
             .section-title {
                 font-size: 1.8rem;
                 text-align: left;
             }
             .services-grid {
-                /* Stays 2 columns on desktop, but with larger gaps */
                 gap: 1rem;
             }
             .service-card {
-                padding: 1.5rem; /* Larger padding on desktop */
+                padding: 1.5rem; 
                 border-left: 4px solid var(--fyr-red);
             }
             .service-title {
-                font-size: 1.1rem; /* Returns to larger font */
+                font-size: 1.1rem; 
                 margin-bottom: 0.25rem;
             }
             .service-sub {
@@ -285,6 +309,11 @@
             <div class="logo"><span>FYR_</span>SPEEDZ</div>
             <div class="tagline">Book to avoid disappointment</div>
         </header>
+
+        <!-- New Intro Section -->
+        <div class="intro-text reveal">
+            FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available. Book today to avoid disappointment 🚗⚡
+        </div>
 
         <section>
             <h2 class="section-title reveal">Specialise In</h2>
@@ -362,6 +391,8 @@
                 <a href="tel:+27610956964" class="contact-btn">📞 Fayyaad - 061 095 6964</a>
                 <a href="tel:+27626828245" class="contact-btn">📞 Jashmika - 062 682 8245</a>
                 <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20make%20a%20booking!" target="_blank" class="contact-btn wa-btn">💬 Chat on WhatsApp</a>
+                <!-- New YouTube Link Button -->
+                <a href="https://youtube.com/@fyr_speedz?si=4avvTB22L735EMTe" target="_blank" class="contact-btn yt-btn">📺 Visit our YouTube</a>
             </div>
 
             <div class="location">
@@ -389,7 +420,6 @@
                 rootMargin: "0px 0px -30px 0px"
             });
 
-            // Delay staggered properly for a 2-column layout (left animates, then right)
             const gridItems = document.querySelectorAll('.services-grid .reveal');
             gridItems.forEach((item, index) => {
                 item.style.transitionDelay = `${(index % 2) * 0.1}s`; 
