@@ -34,7 +34,7 @@
             overflow-x: hidden; 
         }
 
-        /* NEW: Scroll Progress Bar */
+        /* Scroll Progress Bar */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -47,7 +47,7 @@
             transition: width 0.1s ease-out;
         }
 
-        /* NEW: Sticky Glass Header */
+        /* Sticky Glass Header */
         header {
             position: sticky;
             top: 0;
@@ -65,7 +65,7 @@
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;
             background-color: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(12px); /* Glassmorphism effect */
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -84,7 +84,7 @@
         }
 
         header.scrolled .logo {
-            font-size: 8vw; /* Shrinks on scroll */
+            font-size: 8vw; 
             margin-bottom: 0;
         }
 
@@ -100,7 +100,7 @@
         }
 
         header.scrolled .tagline {
-            opacity: 0; /* Fades out tagline to save space */
+            opacity: 0; 
             height: 0;
             overflow: hidden;
         }
@@ -156,7 +156,8 @@
             height: 110px; 
             overflow: hidden;
             border-radius: 4px;
-            transition: transform 0.25s ease, border-color 0.25s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none; /* Removed default outline for custom focus */
         }
 
         .service-card::before {
@@ -171,9 +172,22 @@
             transition: background 0.25s ease;
         }
 
+        /* UX: Hover State */
         .service-card:hover {
-            transform: translateY(-3px) scale(1.02); /* Slight pop effect */
+            transform: translateY(-3px) scale(1.02); 
             border-color: var(--fyr-red);
+            box-shadow: 0 5px 15px rgba(211,0,0,0.2);
+        }
+
+        /* UX: Tactile Tap Feedback */
+        .service-card:active {
+            transform: scale(0.96); 
+        }
+
+        /* UX: Keyboard Accessibility */
+        .service-card:focus-visible {
+            border-color: var(--fyr-red);
+            box-shadow: 0 0 0 3px rgba(211,0,0,0.5);
         }
 
         .service-card:hover::before {
@@ -213,6 +227,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             z-index: 200;
             display: flex;
             justify-content: center;
@@ -232,7 +247,7 @@
             border-radius: 8px;
             width: 100%;
             max-width: 500px;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.5rem 2rem 1.5rem; /* Increased top padding to avoid close button overlap */
             position: relative;
             transform: translateY(20px) scale(0.95);
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -240,20 +255,25 @@
 
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
 
+        /* UX: Fat-finger optimized close button */
         .close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 1.5rem;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.75rem;
             color: var(--text-muted);
             cursor: pointer;
             background: none;
             border: none;
-            padding: 0;
+            padding: 0.5rem; /* Much easier to tap */
             line-height: 1;
+            transition: color 0.2s ease;
         }
 
-        .close-btn:hover { color: var(--fyr-red); }
+        .close-btn:hover, .close-btn:focus-visible { 
+            color: var(--fyr-red); 
+            outline: none;
+        }
 
         #modal-title {
             font-family: 'Montserrat', sans-serif;
@@ -262,7 +282,6 @@
             font-size: 1.4rem;
             text-transform: uppercase;
             margin-bottom: 0.5rem;
-            padding-right: 2rem;
         }
 
         #modal-desc {
@@ -274,27 +293,14 @@
 
         #modal-wa-btn { display: block; width: 100%; text-align: center; }
 
-        .guarantees {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            background-color: var(--surface-dark);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 3rem;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .guarantee-item { font-weight: 600; font-size: 0.95rem; }
-        .guarantee-item span { color: var(--fyr-red); display: block; }
-
+        /* CTA & CONTACT SECTION */
         .cta-section {
             text-align: center;
             background: linear-gradient(180deg, var(--bg-dark) 0%, #1a0000 100%);
             padding: 2.5rem 1rem;
             border: 1px solid var(--fyr-red);
             border-radius: 8px;
+            margin-bottom: 5rem; /* Give space for FAB */
         }
 
         .book-now {
@@ -332,10 +338,41 @@
             border-color: var(--fyr-red-hover);
         }
 
+        /* UX: Tactile tap on buttons */
+        .contact-btn:active { transform: scale(0.97); }
+
         .wa-btn { background-color: var(--wa-green); color: #000; border: none; }
         .wa-btn:hover { background-color: #1ebe5d; border: none; }
         .yt-btn { background-color: var(--yt-red); color: #ffffff; border: none; }
         .yt-btn:hover { background-color: #cc0000; border: none; }
+
+        /* UX: Floating Action Button */
+        .fab-wa {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--wa-green);
+            color: #000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .fab-wa:hover { 
+            transform: scale(1.05) translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            background-color: #1ebe5d;
+        }
+        
+        .fab-wa:active { transform: scale(0.95); }
 
         .location {
             margin-top: 1.5rem;
@@ -343,249 +380,14 @@
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.9rem;
-        }
+        Making it look good is only half the battle; making it *feel* good to use is where the real magic happens. Good UX is basically just making sure your user never has to stop and guess what to do next.
 
-        /* NEW: Directional Animation Classes */
-        .reveal-up { transform: translateY(40px); opacity: 0; }
-        .reveal-left { transform: translateX(-40px); opacity: 0; }
-        .reveal-right { transform: translateX(40px); opacity: 0; }
+First off, **keep your navigation dead simple**. If someone lands on your project, they should know exactly where to click within a couple of seconds. Put the most important stuff right where their eyes naturally go, and don't bury your main links or calls to action in complicated, nested menus. 
 
-        .reveal-up, .reveal-left, .reveal-right {
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform; 
-        }
+You also want to **give constant feedback**. If someone clicks a button, submits a form, or even just hovers over a link, the interface needs to react. A subtle color change, a slight hover animation, or a quick loading spinner tells them, "Hey, I registered your click and I'm working on it." Without that micro-feedback, people just start rage-clicking.
 
-        .reveal-up.active, .reveal-left.active, .reveal-right.active {
-            opacity: 1;
-            transform: translate(0);
-        }
+Don't forget to **design for lazy thumbs**. If this is something people will look at on their phones, make sure your buttons and links are actually big enough to tap without accidentally hitting the thing next to them. It also helps to keep the most important actions near the bottom or middle of the screen where thumbs naturally rest.
 
-        @media(min-width: 600px) {
-            .container { padding: 0 1.5rem 3rem 1.5rem; }
-            .logo { font-size: 3.5rem; }
-            header.scrolled .logo { font-size: 2.5rem; }
-            .tagline { font-size: 1.1rem; }
-            .intro-text { font-size: 1.1rem; }
-            .section-title { font-size: 1.8rem; text-align: left; }
-            .services-grid { gap: 1rem; }
-            .service-card { height: 130px; padding: 1.25rem; border-left: 4px solid var(--fyr-red); }
-            .service-title { font-size: 1.1rem; margin-bottom: 0.25rem; }
-            .service-sub { font-size: 0.85rem; }
-            .guarantees { flex-direction: row; justify-content: space-around; }
-            .book-now { font-size: 2.5rem; }
-            .contact-info { flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
-            .contact-btn { min-width: 250px; }
-        }
-    </style>
-</head>
-<body>
+Finally, **embrace empty space**. You don't need to fill every single pixel with content or features. Giving your text, images, and buttons room to breathe actually reduces cognitive load and guides the user's focus straight to the stuff you actually want them to see.
 
-    <div class="scroll-progress" id="scroll-progress"></div>
-    
-    <header id="main-header">
-        <div class="logo"><span>FYR_</span>SPEEDZ</div>
-        <div class="tagline">Book to avoid disappointment</div>
-    </header>
-
-    <div class="container">
-
-        <div class="intro-text reveal-up">
-            FYR_SPEEDZ specializes in professional auto electrical services, vehicle diagnostics, starter & alternator rebuilding, minor vehicle servicing, LED/light upgrades, dash cam installations, and CCTV installations. We pride ourselves on quality workmanship, reliable service, and fast turnaround, with mobile service available. 🚗⚡
-        </div>
-
-        <section>
-            <h2 class="section-title reveal-up">Specialise In</h2>
-            <div class="services-grid">
-                
-                <!-- Left Column Slides in from Left -->
-                <div class="reveal-left">
-                    <div class="service-card" onclick="openModal('auto')" style="background-image: url('images/auto.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Auto Electrical</div>
-                            <div class="service-sub">Fault Finding</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Right Column Slides in from Right -->
-                <div class="reveal-right">
-                    <div class="service-card" onclick="openModal('starter')" style="background-image: url('images/starter.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Starter</div>
-                            <div class="service-sub">Rebuilding</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-left">
-                    <div class="service-card" onclick="openModal('alternator')" style="background-image: url('images/alternator.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Alternator</div>
-                            <div class="service-sub">Rebuilding</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-right">
-                    <div class="service-card" onclick="openModal('minor')" style="background-image: url('images/minor.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Minor Vehicle</div>
-                            <div class="service-sub">Services</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-left">
-                    <div class="service-card" onclick="openModal('diag')" style="background-image: url('images/diag.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Vehicle Diagnostics</div>
-                            <div class="service-sub">And Code Clearing</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-right">
-                    <div class="service-card" onclick="openModal('led')" style="background-image: url('images/led.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">LED / Light</div>
-                            <div class="service-sub">Upgrades</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-left">
-                    <div class="service-card" onclick="openModal('dashcam')" style="background-image: url('images/dashcam.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">Dash Cam</div>
-                            <div class="service-sub">Installations</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reveal-right">
-                    <div class="service-card" onclick="openModal('cctv')" style="background-image: url('images/cctv.jpg');">
-                        <div class="service-content">
-                            <div class="service-title">CCTV</div>
-                            <div class="service-sub">Installations</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="guarantees reveal-up">
-            <div class="guarantee-item">QUALITY <span>WORKMANSHIP</span></div>
-            <div class="guarantee-item">RELIABLE <span>SERVICE</span></div>
-            <div class="guarantee-item">FAST <span>TURNAROUND</span></div>
-        </div>
-
-        <div class="cta-section reveal-up">
-            <div class="book-now">BOOK NOW</div>
-            <div class="tagline">To Avoid Disappointment</div>
-            
-            <div class="contact-info">
-                <a href="tel:+27610956964" class="contact-btn">📞 Fayyaad - 061 095 6964</a>
-                <a href="tel:+27626828245" class="contact-btn">📞 Jashmika - 062 682 8245</a>
-                <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20make%20a%20booking!" target="_blank" class="contact-btn wa-btn">💬 Chat on WhatsApp</a>
-                <a href="https://youtube.com/@fyr_speedz?si=4avvTB22L735EMTe" target="_blank" class="contact-btn yt-btn">📺 Visit our YouTube</a>
-            </div>
-
-            <div class="location">
-                📍 Based in Cape Town<br>
-                Mobile Service Available
-            </div>
-        </div>
-
-    </div>
-
-    <!-- THE MODAL OVERLAY -->
-    <div class="modal-overlay" id="serviceModal" onclick="closeModal(event)">
-        <div class="modal-box">
-            <button class="close-btn" onclick="forceCloseModal()">&times;</button>
-            <div id="modal-title">Service Title</div>
-            <div id="modal-desc">Service Description goes here...</div>
-            <a href="#" id="modal-wa-btn" target="_blank" class="contact-btn wa-btn">💬 Book this Service</a>
-        </div>
-    </div>
-
-    <!-- Script Logic -->
-    <script>
-        // Data for Modals
-        const serviceData = {
-            'auto': { title: 'Auto Electrical Fault Finding', desc: 'Got a gremlin in the system? We specialize in tracing and repairing complex wiring issues, sensor failures, and electrical drains to keep your vehicle running perfectly.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Auto Electrical Fault Finding' },
-            'starter': { title: 'Starter Rebuilding', desc: 'Don’t let a dead starter leave you stranded. We offer complete starter motor diagnostics, repair, and rebuilding to restore your ignition system to factory reliability.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Starter Rebuilding' },
-            'alternator': { title: 'Alternator Rebuilding', desc: 'Is your battery not holding a charge? We professionally test, repair, and rebuild alternators to ensure your electrical systems are getting the power they need.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Alternator Rebuilding' },
-            'minor': { title: 'Minor Vehicle Services', desc: 'Keep your daily driver or weekend project in peak condition. We handle routine maintenance, oil changes, filter replacements, and general mechanical health checks.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Minor Vehicle Services' },
-            'diag': { title: 'Vehicle Diagnostics', desc: 'Dashboard lit up like a Christmas tree? We use advanced OBD2 scanning to pinpoint engine codes, clear lights, and give you an accurate breakdown of the issue.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Vehicle Diagnostics' },
-            'led': { title: 'LED & Light Upgrades', desc: 'Upgrade your nighttime visibility and give your ride a sharper, modern look. We handle high-performance LED headlight conversions, interior lighting, and custom installs.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about LED / Light Upgrades' },
-            'dashcam': { title: 'Dash Cam Installations', desc: 'Protect yourself on the road with reliable, continuous recording. We provide seamless, professional hardwired dash cam setups with all the messy cables hidden away.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about Dash Cam Installations' },
-            'cctv': { title: 'CCTV Installations', desc: 'Security isn\'t just for your car. We also provide professional CCTV camera installations for your home, garage, or workshop to keep your property totally secure.', waMsg: 'Hi FYR_SPEEDZ, I would like to enquire about CCTV Installations' }
-        };
-
-        // Modal Functions
-        const modal = document.getElementById('serviceModal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDesc = document.getElementById('modal-desc');
-        const modalWaBtn = document.getElementById('modal-wa-btn');
-        const baseWaUrl = "https://wa.me/27610956964?text=";
-
-        function openModal(serviceId) {
-            const data = serviceData[serviceId];
-            modalTitle.textContent = data.title;
-            modalDesc.textContent = data.desc;
-            modalWaBtn.href = baseWaUrl + encodeURIComponent(data.waMsg);
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; 
-        }
-
-        function closeModal(event) { if(event.target === modal) forceCloseModal(); }
-        function forceCloseModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
-
-        // Interactive Scroll Engine
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Progress Bar & Sticky Header
-            const header = document.getElementById('main-header');
-            const progressBar = document.getElementById('scroll-progress');
-            
-            window.addEventListener('scroll', () => {
-                // Header Glassmorphism trigger
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-                
-                // Progress Bar Math
-                const totalScroll = document.documentElement.scrollTop;
-                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scroll = `${totalScroll / windowHeight * 100}%`;
-                progressBar.style.width = scroll;
-            });
-
-            // 2. Intersection Observer for Reveals
-            const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
-            const revealOnScroll = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.15,
-                rootMargin: "0px 0px -20px 0px"
-            });
-
-            // Stagger the grid items for a smooth cascade
-            const leftCards = document.querySelectorAll('.reveal-left');
-            const rightCards = document.querySelectorAll('.reveal-right');
-            
-            leftCards.forEach((item, index) => item.style.transitionDelay = `${index * 0.1}s`);
-            rightCards.forEach((item, index) => item.style.transitionDelay = `${(index * 0.1) + 0.1}s`);
-
-            revealElements.forEach((reveal) => revealOnScroll.observe(reveal));
-        });
-    </script>
-</body>
-</html>
+What exactly are we tweaking the UX for right now—is it for your portfolio site, a server dashboard, or something else entirely?
