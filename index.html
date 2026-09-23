@@ -87,44 +87,47 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.75rem;
+            /* Changed to 2 columns on mobile to reduce scrolling */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem; /* Tighter gap for mobile */
         }
 
         .service-card {
             background-color: var(--surface-dark);
             border: 1px solid var(--border-color);
-            border-left: 4px solid var(--fyr-red);
-            padding: 1.25rem 1rem;
+            border-left: 3px solid var(--fyr-red);
+            padding: 0.85rem 0.5rem; /* Tighter padding to fit 2-up */
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-decoration: none; 
             color: inherit; 
             cursor: pointer;
-            height: 100%; /* Fills the grid wrapper */
-            /* This transition is now ONLY for the hover effect */
+            height: 100%;
+            min-height: 85px; /* Keeps cards uniform if text wraps differently */
             transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
         }
 
         .service-card:hover {
-            transform: translateX(5px);
+            transform: translateY(-3px); /* Upward lift feels better on grid cards */
             border-color: var(--fyr-red);
             background-color: #1a1a1a;
         }
 
         .service-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 0.9rem; /* Scaled down for mobile 2-column */
+            line-height: 1.2;
             text-transform: uppercase;
             margin-bottom: 0.25rem;
         }
 
         .service-sub {
             color: var(--fyr-red);
-            font-size: 0.85rem;
+            font-size: 0.7rem; /* Scaled down for mobile */
             font-weight: 600;
             text-transform: uppercase;
+            line-height: 1.2;
         }
 
         /* GUARANTEES BAR */
@@ -216,10 +219,9 @@
         /* NEW SMOOTH ANIMATION CLASSES */
         .reveal {
             opacity: 0;
-            transform: translateY(20px); /* Shorter travel distance looks cleaner */
-            /* High-end cubic-bezier curve for a natural deceleration */
+            transform: translateY(20px);
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            will-change: opacity, transform; /* Hardware acceleration */
+            will-change: opacity, transform; 
         }
 
         .reveal.active {
@@ -243,8 +245,19 @@
                 text-align: left;
             }
             .services-grid {
-                grid-template-columns: repeat(2, 1fr);
+                /* Stays 2 columns on desktop, but with larger gaps */
                 gap: 1rem;
+            }
+            .service-card {
+                padding: 1.5rem; /* Larger padding on desktop */
+                border-left: 4px solid var(--fyr-red);
+            }
+            .service-title {
+                font-size: 1.1rem; /* Returns to larger font */
+                margin-bottom: 0.25rem;
+            }
+            .service-sub {
+                font-size: 0.85rem;
             }
             .guarantees {
                 flex-direction: row;
@@ -277,7 +290,6 @@
             <h2 class="section-title reveal">Specialise In</h2>
             <div class="services-grid">
                 
-                <!-- Cards are now wrapped in their own .reveal div to prevent CSS conflicts -->
                 <div class="reveal">
                     <a href="https://wa.me/27610956964?text=Hi%20FYR_SPEEDZ,%20I%20would%20like%20to%20enquire%20about%20Auto%20Electrical%20Fault%20Finding" target="_blank" class="service-card">
                         <div class="service-title">Auto Electrical</div>
@@ -360,7 +372,7 @@
 
     </div>
 
-    <!-- Script remains mostly the same, removed the buggy math stagger -->
+    <!-- Scroll Reveal Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const reveals = document.querySelectorAll('.reveal');
@@ -373,14 +385,13 @@
                     }
                 });
             }, {
-                threshold: 0.15, // Triggers slightly later for a cleaner fade
+                threshold: 0.15,
                 rootMargin: "0px 0px -30px 0px"
             });
 
-            // Clean, predictable delay for grid items
+            // Delay staggered properly for a 2-column layout (left animates, then right)
             const gridItems = document.querySelectorAll('.services-grid .reveal');
             gridItems.forEach((item, index) => {
-                // Adds a tiny sequential delay so they flow down the list
                 item.style.transitionDelay = `${(index % 2) * 0.1}s`; 
             });
 
