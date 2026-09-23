@@ -6,11 +6,10 @@
     <title>FYR_SPEEDZ | Auto Electrical & Diagnostics</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Added JetBrains Mono for that diagnostic/telemetry look -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #070707; /* Slightly lighter gunmetal black */
+            --bg-dark: #070707; 
             --surface-dark: #121212;
             --fyr-red: #d30000;
             --fyr-red-hover: #ff1a1a;
@@ -86,7 +85,7 @@
         .logo span { color: var(--fyr-red); }
 
         .tagline {
-            font-family: 'JetBrains Mono', monospace; /* Telemetry aesthetic */
+            font-family: 'JetBrains Mono', monospace; 
             color: var(--fyr-red);
             font-weight: 700;
             font-size: 0.75rem;
@@ -137,11 +136,9 @@
             gap: 0.75rem; 
         }
 
-        /* Automotive Card Design with Mesh background */
         .service-card {
             position: relative;
             background-color: var(--surface-dark);
-            /* Subtle mesh/carbon fiber CSS pattern */
             background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--fyr-red);
@@ -153,11 +150,11 @@
             cursor: pointer;
             height: 110px; 
             overflow: hidden;
+            border-radius: 4px;
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             outline: none; 
         }
 
-        /* The 'Redline' border effect */
         .service-card::after {
             content: '';
             position: absolute;
@@ -200,7 +197,7 @@
         }
 
         .service-sub {
-            font-family: 'JetBrains Mono', monospace; /* Telemetry aesthetic */
+            font-family: 'JetBrains Mono', monospace; 
             color: var(--fyr-red);
             font-size: 0.65rem; 
             font-weight: 700;
@@ -235,11 +232,11 @@
             background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 4px);
             border: 1px solid var(--border-color);
             border-top: 4px solid var(--fyr-red);
-            /* Cut corner on the modal for that mechanical look */
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
             width: 100%;
             max-width: 500px;
-            padding: 2.5rem 1.5rem 2rem 1.5rem; 
+            /* Expanded bottom padding to fit the new animated watermark */
+            padding: 2.5rem 1.5rem 3.5rem 1.5rem; 
             position: relative;
             transform: translateY(20px) scale(0.95);
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -260,6 +257,7 @@
             padding: 0.5rem; 
             line-height: 1;
             transition: color 0.2s ease;
+            z-index: 10;
         }
 
         .close-btn:hover, .close-btn:focus-visible { color: var(--fyr-red); outline: none; }
@@ -272,6 +270,8 @@
             text-transform: uppercase;
             margin-bottom: 0.5rem;
             color: var(--text-main);
+            position: relative;
+            z-index: 2;
         }
 
         #modal-desc {
@@ -279,6 +279,53 @@
             font-size: 0.95rem;
             margin-bottom: 2rem;
             line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        #modal-wa-btn { 
+            display: block; 
+            width: 100%; 
+            text-align: center; 
+            position: relative;
+            z-index: 2;
+            clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+        }
+
+        /* NEW: Modal Watermark Logo */
+        .modal-logo {
+            position: absolute;
+            bottom: 1rem;
+            right: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .modal-logo span { 
+            color: var(--fyr-red); 
+        }
+
+        /* The two-part animation: Slide in, then continuous pulse */
+        .modal-overlay.active .modal-logo {
+            animation: logo-slide-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards, 
+                       logo-pulse 3s infinite 0.6s;
+        }
+
+        @keyframes logo-slide-in {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 0.35; transform: translateX(0); }
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { opacity: 0.35; text-shadow: none; }
+            50% { opacity: 0.75; text-shadow: 0 0 10px rgba(211, 0, 0, 0.6); }
         }
 
         /* GUARANTEES BAR */
@@ -291,7 +338,6 @@
             margin-bottom: 3rem;
             text-align: center;
             border: 1px solid var(--border-color);
-            /* Angled cuts on the guarantee box */
             clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
         }
 
@@ -310,7 +356,6 @@
             background: linear-gradient(180deg, var(--surface-dark) 0%, #0d0000 100%);
             padding: 2.5rem 1rem;
             border: 1px solid var(--fyr-red);
-            /* Racing aesthetic diagonal cuts */
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
             margin-bottom: 5rem; 
         }
@@ -340,7 +385,6 @@
             gap: 0.85rem;
         }
 
-        /* The Automotive Angled Buttons */
         .contact-btn {
             display: inline-block;
             background-color: rgba(211, 0, 0, 0.1);
@@ -356,7 +400,6 @@
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
             cursor: pointer;
-            /* Aerodynamic clip-path */
             clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
         }
 
@@ -371,11 +414,6 @@
         .wa-btn:hover { background-color: #1ebe5d; border: none; }
         .yt-btn { background-color: var(--yt-red); color: #ffffff; border: none; }
         .yt-btn:hover { background-color: #cc0000; border: none; }
-
-        /* Full width block specifically for the modal button */
-        #modal-wa-btn {
-            clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
-        }
 
         /* Floating Action Button (FAB) */
         .fab-wa {
@@ -577,6 +615,9 @@
             <div id="modal-title">Service Title</div>
             <div id="modal-desc">Service Description goes here...</div>
             <a href="#" id="modal-wa-btn" target="_blank" class="contact-btn wa-btn">💬 Book this Service</a>
+            
+            <!-- NEW: Animated Watermark Logo -->
+            <div class="modal-logo"><span>FYR_</span>SPEEDZ</div>
         </div>
     </div>
 
